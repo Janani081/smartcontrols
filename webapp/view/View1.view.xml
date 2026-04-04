@@ -1,0 +1,67 @@
+<mvc:View xmlns:table="sap.ui.table" xmlns:mvc="sap.ui.core.mvc" xmlns:smartfilterbar="sap.ui.comp.smartfilterbar" xmlns:smarttable="sap.ui.comp.smarttable" xmlns="sap.m" controllerName="smartcontrols.controller.View1" displayBlock="true">
+ <Page id="page" title="Remittance Chalan">
+  <content>
+    <smartfilterbar:SmartFilterBar id="idsmartfilterbar" entitySet="ZCONS_SALES_ORDER_CDS">
+      <smartfilterbar:controlConfiguration>
+        <smartfilterbar:ControlConfiguration index="1" id="SalesId" visibleInAdvancedArea="true" label="SalesId" key="SalesId"/>
+        <smartfilterbar:ControlConfiguration index="2" id="Currency" visibleInAdvancedArea="true" label="Currency" key="Currency"/>
+        <smartfilterbar:ControlConfiguration index="3" id="Material" visibleInAdvancedArea="true" label="Material" key="Material"/>
+     </smartfilterbar:controlConfiguration>
+</smartfilterbar:SmartFilterBar>
+<OverflowToolbar id="overflowbar">
+<ToolbarSpacer id="tb"/>
+     <Button id="addInputPress" text="Show Selected Fields" press="onAddInputPress"/>
+      <Button id="downloadExcel" text="Download" press="onDownloadExcel"/>
+   </OverflowToolbar>
+  <ScrollContainer height="65%" width="100%" focusable="true" id="scrollcontainer" horizontal="true" vertical="true">
+    <smarttable:SmartTable
+                    id="idsmarttable"
+                    useExportToExcel="false"
+                    smartFilterId="idsmartfilterbar"
+                    entitySet="ZCONS_SALES_ORDER_CDS"
+                    enableAutoBinding="true"
+                    tableType="ResponsiveTable"
+                    header="Customer orders"
+                    width="200%"
+                    showRowCount="true"
+                    useTablePersonalisation="true"
+                    initialise="onSmartTableInit"
+                    initiallyVisibleFields="SalesId,Currency,SalesOrg,Salesgrp,Salesposition,Material">
+
+                    <Table id="idResponsiveTable"
+                        growing="true"
+                        fixedLayout="false"
+                        growingScrollToLoad="true"
+                        selectionChange="handleSelectionChange"
+                        mode="MultiSelect"
+                        width="100%">
+
+                        <!-- ✅ Custom Column -->
+                        <columns>
+                            <Column>
+                                <Text text="Material Details"/>
+                            </Column>
+                        </columns>
+
+                        <!-- ✅ Custom Cell with Formatter -->
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Text text="{
+                                        parts: [
+                                            { path: 'SalesOrg' },
+                                            { path: 'Material' }
+                                        ],
+                                        formatter: '.formatter.getMaterialDetails'
+                                    }"/>
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+
+                    </Table>
+
+                </smarttable:SmartTable>
+</ScrollContainer>
+</content>
+</Page>
+</mvc:View>
