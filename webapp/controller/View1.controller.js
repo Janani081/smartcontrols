@@ -9,6 +9,7 @@ sap.ui.define([
        onInit: function () {
    
 },
+//add material detail field after salesorg
 onSmartTableInit: function () {
     var oTable = this.byId("idsmarttable").getTable();
 
