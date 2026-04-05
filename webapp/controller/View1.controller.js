@@ -6,6 +6,7 @@ sap.ui.define([
 
     return Controller.extend("smartcontrols.controller.View1", {
         formatter: formatter,
+        //oninit comment
        onInit: function () {
    
 },
